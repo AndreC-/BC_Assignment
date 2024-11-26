@@ -16,23 +16,34 @@ password_input.clear()
 password_input.send_keys("secret_sauce")
 login_button.click()
 
-# Adding third item to cart and clicking checkout
-driver.find_element(
+# Adding the third item to the cart and clicking checkout
+bolt_tshirt_add_to_cart_button = driver.find_element(
     By.CSS_SELECTOR, 'button[data-test="add-to-cart-sauce-labs-bolt-t-shirt"]'
-).click()
-driver.find_element(By.CSS_SELECTOR, '[data-test="shopping-cart-link"]').click()
-driver.find_element(By.CSS_SELECTOR, 'button[data-test="checkout"]').click()
+)
+bolt_tshirt_add_to_cart_button.click()
+shopping_cart = driver.find_element(By.CSS_SELECTOR, '[data-test="shopping-cart-link"]')
+shopping_cart.click()
+checkout_button = driver.find_element(By.CSS_SELECTOR, 'button[data-test="checkout"]')
+checkout_button.click()
 
 # Entering details to complete checkout
 fake = Faker()
-first_name = fake.first_name()
-last_name = fake.last_name()
-postal_code = fake.postalcode()
-driver.find_element(By.CSS_SELECTOR, 'input[data-test="firstName"]').send_keys(first_name)
-driver.find_element(By.CSS_SELECTOR, 'input[data-test="lastName"]').send_keys(last_name)
-driver.find_element(By.CSS_SELECTOR, 'input[data-test="postalCode"]').send_keys(postal_code)
-driver.find_element(By.CSS_SELECTOR, 'input[data-test="continue"]').click()
-driver.find_element(By.CSS_SELECTOR, 'button[data-test="finish"]').click()
+fake_first_name = fake.first_name()
+fake_last_name = fake.last_name()
+fake_postal_code = fake.postalcode()
+first_name_input = driver.find_element(By.CSS_SELECTOR, 'input[data-test="firstName"]')
+first_name_input.clear()
+first_name_input.send_keys(fake_first_name)
+last_name_input = driver.find_element(By.CSS_SELECTOR, 'input[data-test="lastName"]')
+last_name_input.clear()
+last_name_input.send_keys(fake_last_name)
+postal_code_input = driver.find_element(By.CSS_SELECTOR, 'input[data-test="postalCode"]')
+postal_code_input.clear()
+postal_code_input.send_keys(fake_postal_code)
+continue_button = driver.find_element(By.CSS_SELECTOR, 'input[data-test="continue"]')
+continue_button.click()
+finish_button = driver.find_element(By.CSS_SELECTOR, 'button[data-test="finish"]')
+finish_button.click()
 
 # Asserting that the order was completed successfully
 complete_header = driver.find_element(By.CSS_SELECTOR, '[data-test="complete-header"]')
